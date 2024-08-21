@@ -1,0 +1,32 @@
+@forward "./components/loader";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-dark-700);
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.mainContent {
+  flex-grow: 1;
+}
+
+.content:has(aside) {
+  .mainContent {
+    padding: 30px 0 30px 30px;
+  }
+}

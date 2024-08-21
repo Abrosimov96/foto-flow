@@ -1,0 +1,21 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+
+  padding-top: 24px;
+}
+
+.confirmContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  align-items: center;
+
+  max-width: 294px;
+}
+
+.infoText {
+  text-align: center;
+}

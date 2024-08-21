@@ -1,0 +1,34 @@
+.sidebar {
+  width: 180px;
+  padding-top: 72px;
+  padding-right: 5px;
+  border-right: 1px solid var(--color-dark-300);
+}
+
+.primaryNav,
+.secondaryNav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.primaryNav {
+  margin-bottom: 60px;
+}
+
+.secondaryNav {
+  margin-bottom: 180px;
+}
+
+.modalBody {
+  width: 100%;
+  max-width: 378px;
+  padding: 30px 24px;
+}
+
+.btnActionContainer {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  margin-top: 18px;
+}

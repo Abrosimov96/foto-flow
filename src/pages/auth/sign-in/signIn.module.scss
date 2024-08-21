@@ -1,0 +1,27 @@
+.signIn {
+  width: 100%;
+  max-width: 378px;
+  margin: 24px auto 0;
+  padding: 24px;
+}
+
+.signInForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.forgotPassword {
+  align-self: flex-end;
+  color: var(--color-light-900);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.noAccount {
+  margin-bottom: 6px;
+  text-align: center;
+}

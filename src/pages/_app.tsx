@@ -1,14 +1,16 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app"
 
-// ToDo fix css import ESLint: Missing file extension "css" for "@teamlead.incubator/ui-kit/css"(import/extensions)
-import { ReactNode } from 'react'
-import { Provider } from 'react-redux'
+import { ReactNode } from "react"
+import { Provider } from "react-redux"
 
-import { wrapper } from '@/store'
-import { Toaster } from 'sonner'
+import { Container, Header, Sidebar } from "@/components"
+import { wrapper } from "@/store"
+import { Toaster } from "@teamlead.incubator/ui-kit"
+import Router from "next/router"
 
+import "../styles/index.scss"
 // eslint-disable-next-line import/extensions
-import '@teamlead.incubator/ui-kit/css'
+import "@teamlead.incubator/ui-kit/css"
 
 export default function App({ Component, ...rest }: AppProps) {
   const { props, store } = wrapper.useWrappedStore(rest)
@@ -16,8 +18,8 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
     <Provider store={store}>
       <Layout>
-        <Toaster />
         <Component {...props.pageProps} />
+        <Toaster />
       </Layout>
     </Provider>
   )
@@ -25,10 +27,12 @@ export default function App({ Component, ...rest }: AppProps) {
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <div>
-      <header>header</header>
-      <main>{children}</main>
-      <footer>footer</footer>
-    </div>
+    <>
+      <Header />
+      <Container className={"content"}>
+        {Router.pathname.startsWith("/profile") && <Sidebar />}
+        <main className={"mainContent"}>{children}</main>
+      </Container>
+    </>
   )
 }

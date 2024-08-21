@@ -1,0 +1,34 @@
+.signup {
+  width: 100%;
+  max-width: 378px;
+  margin: 24px auto 0;
+  padding: 24px;
+}
+
+.haveAccount {
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.modal {
+  max-width: 378px;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px 24px 36px;
+}
+
+.modalButton {
+  align-self: end;
+  padding: 6px 36px;
+}

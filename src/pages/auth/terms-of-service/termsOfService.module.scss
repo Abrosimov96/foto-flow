@@ -1,0 +1,26 @@
+.terms {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+  align-items: center;
+
+  margin-top: 24px;
+}
+
+.goBackButton {
+  gap: 12px;
+  align-self: start;
+}
+
+.content {
+  max-width: 90%;
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.description {
+  text-align: justify;
+}
