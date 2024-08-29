@@ -3,10 +3,9 @@ import type { AppProps } from "next/app"
 import { ReactNode } from "react"
 import { Provider } from "react-redux"
 
-import { Container, Header, Sidebar } from "@/components"
+import { Container, Header, Sidebar, Toaster } from "@/components"
+import { useMeQuery } from "@/services/auth.service"
 import { wrapper } from "@/store"
-import { Toaster } from "@teamlead.incubator/ui-kit"
-import Router from "next/router"
 
 import "../styles/index.scss"
 // eslint-disable-next-line import/extensions
@@ -26,11 +25,13 @@ export default function App({ Component, ...rest }: AppProps) {
 }
 
 function Layout({ children }: { children: ReactNode }) {
+  const { isSuccess: isSuccessMe } = useMeQuery()
+
   return (
     <>
       <Header />
       <Container className={"content"}>
-        {Router.pathname.startsWith("/profile") && <Sidebar />}
+        {isSuccessMe && <Sidebar />}
         <main className={"mainContent"}>{children}</main>
       </Container>
     </>

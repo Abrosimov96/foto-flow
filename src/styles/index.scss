@@ -27,6 +27,7 @@ body {
 
 .content:has(aside) {
   .mainContent {
+    width: calc(100% - 180px);
     padding: 30px 0 30px 30px;
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "@/utils/hooks/useTranslation"
 import { Button, Typography } from "@teamlead.incubator/ui-kit"
 import Head from "next/head"
 import Image from "next/image"
@@ -5,32 +6,33 @@ import { useRouter } from "next/router"
 
 import s from "./passwordRecoveryExpired.module.scss"
 
-const TITLE = "Password recovery link expired"
+const passwordTitle = "Password recovery"
 
 export default function PasswordRecoveryExpired() {
   const router = useRouter()
   const openForgotPassword = () => router.push("forgot-password")
 
+  const { t } = useTranslation()
+
   return (
     <>
       <Head>
-        <title>{TITLE}</title>
+        <title>{t.auth.linkExpired(passwordTitle)}</title>
       </Head>
       <main className={s.passwordRecoveryExpired}>
         <div className={s.container}>
           <Typography className={s.title} variant={"h1"}>
-            {TITLE}
+            {t.auth.linkExpired(passwordTitle)}
           </Typography>
           <Typography className={s.text} variant={"regular_text_16"}>
-            Looks like the password recovery link has expired. Not to worry, we can send the link
-            again
+            {t.auth.linkExpiredDescription(passwordTitle.toLowerCase())}
           </Typography>
           <Button fullWidth onClick={openForgotPassword} variant={"primary"}>
-            Resend link
+            {t.auth.resendLink}
           </Button>
         </div>
         <Image
-          alt={TITLE}
+          alt={t.auth.linkExpired(passwordTitle)}
           height={"352"}
           priority
           src={"/assets/svg/waitingTime.svg"}

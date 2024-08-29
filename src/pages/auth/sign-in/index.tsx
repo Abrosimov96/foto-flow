@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { useMemo } from "react"
 
 import { AuthTitle, Loader } from "@/components"
 import { useMeQuery, useSignInMutation } from "@/services/auth.service"
@@ -9,25 +9,10 @@ import { Button, Card, FormInput, Typography } from "@teamlead.incubator/ui-kit"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { z } from "zod"
 
 import s from "./signIn.module.scss"
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "The email must match the format example@example.com" }),
-  password: z
-    .string()
-    .min(6, { message: "Minimum number of characters 6" })
-    .max(30, { message: "Maximum number of characters 30" })
-    .regex(
-      /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]+$/,
-      {
-        message: "Password must contain uppercase and lowercase letters, numbers, symbols"
-      }
-    )
-})
-
-type SignInFields = z.infer<typeof loginSchema>
+import { SignInFields, signInSchema } from "./signIn.schema"
 
 export default function SignIn() {
   const [signin, { isLoading }] = useSignInMutation()
@@ -35,6 +20,8 @@ export default function SignIn() {
   const router = useRouter()
 
   const { t } = useTranslation()
+
+  const zodSignInSchema = useMemo(() => signInSchema(t), [t])
 
   const {
     control,
@@ -47,7 +34,7 @@ export default function SignIn() {
       password: "12345Qwert-"
     },
     mode: "onTouched",
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(zodSignInSchema)
   })
 
   const onSubmit = handleSubmit(data => {
@@ -65,7 +52,7 @@ export default function SignIn() {
   }
 
   if (dataMe) {
-    void router.push(`/profile/${dataMe.userId}`)
+    void router.replace(`/profile/${dataMe.userId}`)
 
     return null
   }
@@ -73,10 +60,10 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>{t.auth.signinTitle}</title>
+        <title>{t.auth.signIn}</title>
       </Head>
       <Card className={s.signIn}>
-        <AuthTitle title={t.auth.signinTitle} />
+        <AuthTitle title={t.auth.signIn} />
         <form className={s.signInForm} onSubmit={onSubmit}>
           <FormInput
             control={control}
@@ -102,14 +89,14 @@ export default function SignIn() {
             {t.auth.forgotPassword}
           </Typography>
           <Button disabled={isLoading || !isValid} fullWidth type={"submit"} variant={"primary"}>
-            {t.auth.signin}
+            {t.auth.signIn}
           </Button>
         </form>
         <Typography className={s.noAccount} variant={"regular_text_16"}>
           {t.auth.noAccount}
         </Typography>
         <Button as={Link} fullWidth href={"sign-up"} variant={"text"}>
-          {t.auth.signup}
+          {t.auth.signUp}
         </Button>
       </Card>
     </>

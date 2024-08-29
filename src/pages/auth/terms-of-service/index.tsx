@@ -1,4 +1,3 @@
-import { Container } from "@/components"
 import { useTranslation } from "@/utils/hooks/useTranslation"
 import { Button, IconArrowBackOutline, Typography } from "@teamlead.incubator/ui-kit"
 import Link from "next/link"

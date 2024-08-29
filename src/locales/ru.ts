@@ -12,12 +12,13 @@ export const ru: LocaleType = {
     emailSent: "Письмо отправлено",
     emailSentText: (email: string) =>
       `Мы отправили ссылку для подтверждения вашего адреса электронной почты на ${email}`,
+    emailType: "Адрес почты должен соответствовать формату example@example.com",
     enterEmailInstructions:
       "Введите свой адрес электронной почты и мы вышлем вам дальнейшие инструкции",
     forgotPassword: "Забыл пароль?",
     haveAccount: "У вас есть аккаунт?",
-    linkExpired: "Ссылка устарела",
-    linkExpiredDescription:
+    linkExpired: () => `Ссылка устарела`,
+    linkExpiredDescription: () =>
       "Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку еще раз",
     linkSentByEmail:
       "Ссылка была отправлена по электронной почте.\nЕсли вы не получили ссылку по электронной почте, отправьте её еще раз",
@@ -36,24 +37,62 @@ export const ru: LocaleType = {
       `Ваш пароль должен содержать от ${minChars} до ${maxChars} символов`,
     privacyPolicy: "Политика конфиденциальности",
     registrationAgree: "Я согласен с <1>terms</1> и <2>policy</2>",
-    resendVerificationLink: "Отправить ссылку повторно",
+    resendLink: "Отправить ссылку повторно",
     sendLink: "Отправить ссылку",
     sendLinkAgain: "Отправить ссылку повторно",
-    signin: "Войти",
-    signinTitle: "Вход",
-    signup: "Зарегистрироваться",
-    signupTitle: "Регистрация",
+    signIn: "Войти",
+    signInTitle: "Вход",
+    signUp: "Зарегистрироваться",
+    signUpTitle: "Регистрация",
     termsOfService: "Условия пользования",
-    userName: "Имя пользователя"
+    userName: "Имя пользователя",
+    userNameContains: "Имя пользователя должно содержать 0-9; A-Z; a-z; _; -"
   },
   commonWords: {
     no: "Нет",
     ok: "Ок",
+    save: "Сохранить",
     yes: "Да"
+  },
+  editProfile: {
+    generalInformation: {
+      aboutMe: "О себе",
+      city: "Выберите ваш город",
+      cityDefaultValue: "Город",
+      country: "Выберите вашу страну",
+      countryDefaultValue: "Страна",
+      dateOfBirth: "Дата рождения",
+      errorEditAlert: "Ошибка! Сервер недоступен!",
+      firstName: "Имя",
+      firstNameContains: "Имя пользователя должно содержать A-Z; a-z; А-Я; а-я",
+      lastName: "Фамилия",
+      lastNameContains: "Имя пользователя должно содержать A-Z; a-z; А-Я; а-я",
+      saveChanges: "Сохранить изменения",
+      successEditAlert: "Ваши настройки сохранены!",
+      userAgeProfile: "Пользователь младше 13 лет не может создать профиль. <1>policy</1>",
+      userName: "Имя пользователя",
+      userNameContains: "Имя пользователя должно содержать 0-9; A-Z; a-z; _; -"
+    },
+    tabs: {
+      accountManagement: "Управление аккаунтом",
+      devices: "Устройства",
+      generalInformation: "Общая информация",
+      myPayments: "Мои платежи"
+    }
   },
   error: "Ошибка",
   header: {
     logo: "Логотип"
+  },
+  profilePhoto: {
+    addPhoto: "Добавить фотографию профиля",
+    deletePhoto: "Удалить фотографию",
+    deletePhotoConfirm: "Вы уверены, что хотите удалить фотографию?",
+    errorPhotoFormat: "Ошибка! Формат загружаемой фотографии должен быть PNG и JPEG",
+    errorPhotoSize: "Ошибка! Размер фотографии должен быть менее 10 МБ!",
+    photo: "Фотография",
+    photoPreview: "Предпросмотр фотографии",
+    selectPhoto: "Выбрать с компьютера"
   },
   sidebar: {
     create: "Создать",

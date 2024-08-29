@@ -1,9 +1,8 @@
-import { Loader } from "@/components"
+import { Loader, callToaster } from "@/components"
 import { useGoogleLoginQuery, useMeQuery } from "@/services/auth.service"
 import { ErrorResponse } from "@/services/auth.types"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { toast } from "sonner"
 
 export default function Home() {
   const router = useRouter()
@@ -18,11 +17,12 @@ export default function Home() {
   }
 
   if (error) {
-    toast.error(googleLoginError)
+    callToaster("error", googleLoginError)
   }
 
   if (data) {
-    void router.push(`/profile/${data.userId}`)
+    //TODO пофиксить главную страничку
+    //void router.push(`/profile/${data.userId}`)
 
     return null
   }

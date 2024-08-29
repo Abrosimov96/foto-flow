@@ -1,16 +1,21 @@
-import { Container } from "@/components"
 import { useTranslation } from "@/utils/hooks/useTranslation"
 import { Button, IconArrowBackOutline, Typography } from "@teamlead.incubator/ui-kit"
-import Link from "next/link"
+import { useRouter } from "next/router"
 
 import s from "./privacyPolicy.module.scss"
 
 export default function PrivacyPolicy() {
   const { t } = useTranslation()
 
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
+
   return (
     <div className={s.privacy}>
-      <Button as={Link} className={s.goBackButton} href={"sign-up"}>
+      <Button className={s.goBackButton} onClick={handleBack}>
         <IconArrowBackOutline />
         <Typography variant={"regular_text_14"}>{t.auth.backToSignUp}</Typography>
       </Button>

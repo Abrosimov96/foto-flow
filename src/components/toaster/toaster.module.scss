@@ -1,0 +1,31 @@
+.toast {
+  --initial-height: auto !important;
+
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+
+  min-width: 387px;
+  padding: 11px 24px;
+
+  border-radius: 2px;
+
+  &[data-type="success"] {
+    background-color: var(--color-success-900);
+    border: 1px solid var(--color-success-500);
+  }
+
+  &[data-type="error"] {
+    background-color: var(--color-danger-900);
+    border: 1px solid var(--color-danger-500);
+  }
+}
+
+.close {
+  display: flex;
+  align-items: center;
+}
+
+.emptyIcon {
+  display: none;
+}

@@ -126,10 +126,10 @@ export const Header = () => {
           {isNotSignedIn && (
             <>
               <Button as={Link} className={s.signin} href={"/auth/sign-in"} variant={"text"}>
-                {t.auth.signin}
+                {t.auth.signInTitle}
               </Button>
               <Button as={Link} className={s.signup} href={"/auth/sign-up"} variant={"primary"}>
-                {t.auth.signup}
+                {t.auth.signUpTitle}
               </Button>
             </>
           )}

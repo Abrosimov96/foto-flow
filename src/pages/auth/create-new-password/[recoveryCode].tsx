@@ -1,50 +1,18 @@
 import { useMemo } from "react"
 import { useForm } from "react-hook-form"
 
-import { LocaleType } from "@/locales/en"
 import { useNewPasswordMutation } from "@/services/auth.service"
 import { useTerminateAllMutation } from "@/services/sessions.service"
+import { MAX_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH } from "@/shared/constants"
 import { useTranslation } from "@/utils/hooks/useTranslation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Card, FormInput, Typography } from "@teamlead.incubator/ui-kit"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { z } from "zod"
 
 import s from "./createNewPassword.module.scss"
 
-const MIN_PASSWORD_LENGTH = 6
-const MAX_PASSWORD_LENGTH = 20
-
-const PASSWORD_REGEX =
-  /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]+$/
-
-const passwordValidation = (t: LocaleType) =>
-  z
-    .string()
-    .min(MIN_PASSWORD_LENGTH, { message: t.auth.minCharsNumber(MIN_PASSWORD_LENGTH) })
-    .max(MAX_PASSWORD_LENGTH, { message: t.auth.maxCharsNumber(MAX_PASSWORD_LENGTH) })
-    .regex(PASSWORD_REGEX, {
-      message: t.auth.passwordMustContain
-    })
-
-const createNewPasswordSchema = (t: LocaleType) =>
-  z
-    .object({
-      confirmPassword: passwordValidation(t),
-      newPassword: passwordValidation(t)
-    })
-    .superRefine(({ confirmPassword, newPassword }, ctx) => {
-      if (newPassword !== confirmPassword) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: t.auth.passwordMatch,
-          path: ["confirmPassword"]
-        })
-      }
-    })
-
-type CreateNewPasswordFields = z.infer<ReturnType<typeof createNewPasswordSchema>>
+import { CreateNewPasswordFields, createNewPasswordSchema } from "./createNewPassword.schema"
 
 export default function CreateNewPassword() {
   const router = useRouter()
@@ -54,10 +22,10 @@ export default function CreateNewPassword() {
   const [terminateAllSessions, { isLoading: isTerminateAllSessionsLoading }] =
     useTerminateAllMutation()
 
-  // ToDo: useMemo for t and so on? Can we translate in real time validate errors?
   const { t } = useTranslation()
-  const newPasswordSchema = useMemo(() => createNewPasswordSchema(t), [t])
   const isLoading = isSendNewPasswordLoading || isTerminateAllSessionsLoading
+
+  const newPasswordSchema = useMemo(() => createNewPasswordSchema(t), [t])
 
   const {
     control,

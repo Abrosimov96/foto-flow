@@ -4,18 +4,14 @@
   gap: 30px;
   align-items: center;
 
-  padding-top: 24px;
+  margin: 24px auto 0;
 }
 
 .confirmContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 19px;
-  align-items: center;
-
   max-width: 294px;
+  text-align: center;
 }
 
 .infoText {
-  text-align: center;
+  margin-bottom: 20px;
 }

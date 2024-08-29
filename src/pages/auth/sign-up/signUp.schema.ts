@@ -1,3 +1,6 @@
+import { LocaleType } from "@/locales/en"
+import { passwordRegex, userNameRegex } from "@/shared/constants"
+
 import { z } from "zod"
 
 export function zodAlwaysRefine<T extends z.ZodTypeAny>(zodType: T) {
@@ -12,39 +15,35 @@ export function zodAlwaysRefine<T extends z.ZodTypeAny>(zodType: T) {
   }) as unknown as T
 }
 
-export const signUpSchema = zodAlwaysRefine(
-  z.object({
-    confirmPassword: z.string(),
-    email: z
-      .string({ message: "Email is required" })
-      .email({ message: "The email must match the format example@example.com" }),
-    password: z
-      .string({ message: "Password is required" })
-      .min(6, { message: "Minimum number of characters 6" })
-      .max(30, { message: "Maximum number of characters 30" })
-      .regex(
-        /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~])[A-Za-z0-9!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]+$/,
-        {
-          message: "Password must contain uppercase and lowercase letters, numbers, symbols"
-        }
-      ),
-    policy: z.literal<boolean>(true),
-    userName: z
-      .string({ message: "Username is required" })
-      .min(6, { message: "Minimum number of characters 6" })
-      .max(30, { message: "Maximum number of characters 30" })
-      .regex(/^[a-zA-Z0-9_-]*$/, {
-        message: "Username may contain 0-9; A-Z; a-z; _; -"
-      })
-  })
-).superRefine((values, ctx) => {
-  if (values.password !== values.confirmPassword) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "The passwords must match!",
-      path: ["confirmPassword"]
+export const signUpSchema = (t: LocaleType) =>
+  zodAlwaysRefine(
+    z.object({
+      confirmPassword: z.string(),
+      email: z.string().email({ message: t.auth.emailType }),
+      password: z
+        .string()
+        .min(6, { message: t.auth.minCharsNumber(6) })
+        .max(30, { message: t.auth.maxCharsNumber(30) })
+        .regex(passwordRegex, {
+          message: t.auth.passwordMustContain
+        }),
+      policy: z.literal<boolean>(true),
+      userName: z
+        .string()
+        .min(6, { message: t.auth.minCharsNumber(6) })
+        .max(30, { message: t.auth.maxCharsNumber(30) })
+        .regex(userNameRegex, {
+          message: t.auth.userNameContains
+        })
     })
-  }
-})
+  ).superRefine((values, ctx) => {
+    if (values.password !== values.confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: t.auth.passwordMatch,
+        path: ["confirmPassword"]
+      })
+    }
+  })
 
-export type SignupFields = z.infer<typeof signUpSchema>
+export type SignupFields = z.infer<ReturnType<typeof signUpSchema>>

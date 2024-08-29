@@ -16,7 +16,7 @@ export const ConfirmedRegistration = () => {
         <Typography className={s.infoText}>{t.auth.emailConfirmed}</Typography>
       </div>
       <Button as={Link} className={s.signinButton} href={"sign-in"} variant={"primary"}>
-        {t.auth.signin}
+        {t.auth.signIn}
       </Button>
       <Image
         alt={t.auth.emailConfirmed}

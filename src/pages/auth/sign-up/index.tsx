@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { AuthModal, AuthTitle, Translation } from "@/components"
@@ -19,6 +19,8 @@ export default function SignUp() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { t } = useTranslation()
+
+  const zodSignUpSchema = useMemo(() => signUpSchema(t), [t])
 
   const onCloseModal = () => {
     setIsModalOpen(false)
@@ -41,7 +43,7 @@ export default function SignUp() {
       userName: ""
     },
     mode: "onTouched",
-    resolver: zodResolver(signUpSchema)
+    resolver: zodResolver(zodSignUpSchema)
   })
 
   const onSubmit = handleSubmit(data => {
@@ -67,10 +69,10 @@ export default function SignUp() {
   return (
     <>
       <Head>
-        <title>{t.auth.signupTitle}</title>
+        <title>{t.auth.signUpTitle}</title>
       </Head>
       <Card className={s.signup}>
-        <AuthTitle title={t.auth.signupTitle} />
+        <AuthTitle title={t.auth.signUpTitle} />
         <form className={s.signUpForm} onSubmit={onSubmit}>
           <FormInput
             control={control}
@@ -128,12 +130,12 @@ export default function SignUp() {
             name={"policy"}
           />
           <Button disabled={!isValid || isLoading} fullWidth type={"submit"} variant={"primary"}>
-            {t.auth.signup}
+            {t.auth.signUp}
           </Button>
         </form>
         <Typography className={s.haveAccount}>{t.auth.haveAccount}</Typography>
         <Button as={Link} fullWidth href={"sign-in"} variant={"text"}>
-          {t.auth.signin}
+          {t.auth.signIn}
         </Button>
       </Card>
       <AuthModal

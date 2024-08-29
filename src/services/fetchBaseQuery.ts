@@ -50,7 +50,11 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          if (Router.pathname !== "/" && !Router.pathname.startsWith("/auth")) {
+          if (
+            Router.pathname !== "/" &&
+            !Router.pathname.startsWith("/auth") &&
+            !Router.pathname.startsWith("/profile/")
+          ) {
             void Router.push("/auth/sign-in")
           }
         }

@@ -1,0 +1,35 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 24px 0;
+}
+
+.userAvatar {
+  //width: 192px;
+}
+
+.userData {
+  flex-grow: 1;
+}
+
+.editUserForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px
+}
+
+.location {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.country,
+.city {
+  width: 50%;
+}
+
+.saveButton {
+  align-self: flex-end;
+}
